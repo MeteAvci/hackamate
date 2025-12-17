@@ -7,6 +7,53 @@
 
 Hackamate is a collection of **surgical automation tools** designed to eliminate repetitive digital labor. No bloated frameworks. No unnecessary dependencies. Just scripts that work.
 
+<details>
+<summary>🇹🇷 Türkçesi için Tıkla!</summary>
+
+## ⚡ HACKAMATE
+
+**Tembel dahiler için otomasyon cephaneliği.**
+
+> *"Bir iradenin gücünü, ne kadar direnç, acı ve işkenceye katlandığını ve bunları nasıl kendi avantajına çevirdiğini ölçerim."*  
+> — Friedrich Nietzsche
+
+Hackamate, tekrarlayan dijital işleri ortadan kaldırmak için tasarlanmış **cerrahi otomasyon araçları** koleksiyonudur. Şişirilmiş framework yok. Gereksiz bağımlılık yok. Sadece çalışan scriptler.
+
+---
+
+## 🔧 Cephanelik
+
+| Araç | Hedef | Ne yapar |
+|------|-------|----------|
+| [xweet](./xweet) | X (Twitter) | Çok katmanlı algılama ile eski tweet ve retweetleri toplu siler |
+
+*Daha fazla silah yükleniyor...*
+
+---
+
+## 🧬 Felsefe
+
+- **Basitlik > Karmaşıklık** – 50 satır config gerektiriyorsa, aşırı mühendislik yapılmış demektir
+- **Otomasyon > Tekrar** – İki kez yapılan her şey scriptlenmeli
+- **DOM > API** – API'yi ücretli yaparlarsa, direkt gireriz
+- **Fallback > Başarısızlık** – Plan A bozulduğunda, Plan B otomatik devreye girer
+
+---
+
+## 👤 Yazar
+
+**[Mete Avcı](https://github.com/MeteAvci)** tarafından **AI Final Boss aka ÇeteGPT** ile birlikte yapıldı
+
+[Me the Tech](https://methetech.com)'in bir parçası – AI & otomasyon stüdyosu
+
+---
+
+## ⚠️ Uyarı
+
+Yalnızca kişisel kullanım. Kırarsan, senin sorunun.
+
+</details>
+
 ---
 
 ## 🔧 Arsenal
