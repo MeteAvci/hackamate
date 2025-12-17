@@ -1,4 +1,4 @@
-# XWEET DESTROYER v2.3
+# XWEET DESTROYER v2.5
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/badge/Platform-X%20(Twitter)-1DA1F2?logo=twitter)](https://x.com)
@@ -44,6 +44,18 @@
 - Modern tarayıcı (Chrome, Firefox, Edge)
 - X.com'a giriş yapılmış olmalı
 - Kendi profil sayfanızda olmalısınız
+
+### Algılama Mantığı
+
+Script, silme/retweet butonlarını **çok katmanlı fallback sistemi** ile bulur:
+
+| Öncelik | Yöntem | Açıklama |
+|---------|--------|----------|
+| 1️⃣ | **Metin Eşleşme** | Menüde "delete"/"sil" (EN/TR) arar |
+| 2️⃣ | **SVG İkon** | Metin bulunamazsa çöp kutusu ikonu eşleştirir |
+| 3️⃣ | **Renk** | Kırmızı renk (`rgb(244,33,46)`) tehlike butonu olarak algılar |
+
+Bu sayede X buton etiketlerini değiştirse veya farklı dil kullansanız bile script çalışır.
 
 ## ⚠️ Uyarı
 
@@ -108,6 +120,18 @@
 4. Scrolls down to load more tweets
 5. Repeats until stopped
 ```
+
+### Detection Logic
+
+The script finds delete/unretweet buttons using a **multi-layer fallback system**:
+
+| Priority | Method | Description |
+|----------|--------|-------------|
+| 1️⃣ | **Text Match** | Looks for "delete"/"sil" (EN/TR) in menu items |
+| 2️⃣ | **SVG Icon** | Matches trash icon SVG path if text not found |
+| 3️⃣ | **Color** | Detects red color (`rgb(244,33,46)`) as danger button |
+
+This ensures the script works even if X changes button labels or you use a different language.
 
 ---
 

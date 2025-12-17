@@ -1,23 +1,23 @@
 // ==========================================
-// PROJECT: XWEET DESTROYER v2.3
-// CODENAME: STABLE_AIM
+// PROJECT: XWEET DESTROYER v2.5
+// CODENAME: GLOBAL_SHUTDOWN
 // AUTHOR: AI Final Boss aka ÇeteGPT by Mete Avcı
 // ==========================================
 
 (function () {
     'use strict';
 
-    // --- INTERNATIONALIZATION ---
+    // --- INTERNATIONALIZATION (GUI Only) ---
     const i18n = {
         en: {
-            title: 'XWEET DESTROYER v2.3',
+            title: 'XWEET DESTROYER v2.5',
             close: 'CLOSE',
             targetDate: 'TARGET DATE (CUTOFF)',
             deleteRetweets: 'DELETE RETWEETS',
             speedSetting: 'SPEED SETTING:',
             start: 'START',
             stop: 'STOP',
-            initMsg: ['> SYSTEM INITIALIZED [STABLE].', '> DRIFT ISSUE RESOLVED.', '> SELECT DATE AND START.'],
+            initMsg: ['> SYSTEM INITIALIZED [GLOBAL].', '> FALLBACK MODE ENABLED.', '> SELECT DATE AND START.'],
             statDel: 'DEL',
             statRt: 'RT',
             statSkip: 'SKIP',
@@ -33,14 +33,14 @@
             stopped: '/// STOPPED ///'
         },
         tr: {
-            title: 'XWEET DESTROYER v2.3',
+            title: 'XWEET DESTROYER v2.5',
             close: 'KAPAT',
             targetDate: 'HEDEF TARİH (SINIR)',
             deleteRetweets: 'RETWEETLERİ SİL',
             speedSetting: 'HIZ AYARI:',
             start: 'BAŞLAT',
             stop: 'DURDUR',
-            initMsg: ['> SİSTEM BAŞLATILDI [STABLE].', '> KAYMA SORUNU GİDERİLDİ.', '> TARİH SEÇ VE BAŞLAT.'],
+            initMsg: ['> SİSTEM BAŞLATILDI [GLOBAL].', '> FALLBACK MODU AKTİF.', '> TARİH SEÇ VE BAŞLAT.'],
             statDel: 'SİL',
             statRt: 'RT',
             statSkip: 'ATLA',
@@ -60,7 +60,7 @@
     let currentLang = 'en';
     const t = (key) => i18n[currentLang][key] || key;
 
-    // --- 1. STYLE (DARK MATTER - BLACK/BLUE) ---
+    // --- STYLES (DARK MATTER THEME) ---
     const styleBlock = document.createElement('style');
     styleBlock.innerHTML = `
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
@@ -98,10 +98,7 @@
             text-transform: uppercase;
         }
 
-        .xd-header-btns {
-            display: flex;
-            gap: 8px;
-        }
+        .xd-header-btns { display: flex; gap: 8px; }
 
         .xd-lang-btn {
             background: transparent;
@@ -215,11 +212,11 @@
     `;
     document.head.appendChild(styleBlock);
 
-    // --- 2. HTML UI ---
+    // --- HTML UI ---
     const panelHTML = `
         <div id="xd-panel">
             <div class="xd-header" id="xd-drag-handle">
-                <span class="xd-title" id="xd-title">XWEET DESTROYER v2.4</span>
+                <span class="xd-title" id="xd-title">XWEET DESTROYER v2.5</span>
                 <div class="xd-header-btns">
                     <button id="xd-lang" class="xd-lang-btn">TR</button>
                     <button id="xd-close" class="xd-close-btn" title="CLOSE">X</button>
@@ -245,8 +242,8 @@
                 </div>
 
                 <div id="xd-console" class="xd-console">
-> SYSTEM INITIALIZED [STABLE].
-> DRIFT ISSUE RESOLVED.
+> SYSTEM INITIALIZED [GLOBAL].
+> FALLBACK MODE ENABLED.
 > SELECT DATE AND START.
                 </div>
 
@@ -269,7 +266,7 @@
     wrapper.innerHTML = panelHTML;
     document.body.appendChild(wrapper.firstElementChild);
 
-    // --- 3. LANGUAGE SWITCH ---
+    // --- UI LANGUAGE SWITCH ---
     const updateUI = () => {
         document.getElementById('xd-title').innerText = t('title');
         document.getElementById('xd-close').title = t('close');
@@ -290,7 +287,7 @@
         log(`>> LANG: ${currentLang.toUpperCase()}`, 'info');
     });
 
-    // --- 4. DRAG & CLOSE ---
+    // --- DRAG & CLOSE ---
     const panel = document.getElementById('xd-panel');
     const handle = document.getElementById('xd-drag-handle');
     const closeBtn = document.getElementById('xd-close');
@@ -317,11 +314,16 @@
         if (!isDragging) return;
         panel.style.left = `${initialLeft + (e.clientX - startX)}px`;
         panel.style.top = `${initialTop + (e.clientY - startY)}px`;
-        panel.style.right = 'auto'; panel.style.bottom = 'auto';
+        panel.style.right = 'auto';
+        panel.style.bottom = 'auto';
     });
-    document.addEventListener('mouseup', () => { isDragging = false; panel.style.cursor = 'default'; handle.style.cursor = 'move'; });
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        panel.style.cursor = 'default';
+        handle.style.cursor = 'move';
+    });
 
-    // --- 5. ADVANCED OPERATION ---
+    // --- CORE LOGIC ---
     let deletedCount = 0;
     let rtCount = 0;
     let skippedCount = 0;
@@ -348,6 +350,68 @@
     const sleep = (ms) => new Promise(r => setTimeout(r, ms));
     const randomDelay = (base) => base + Math.random() * 800;
 
+    // --- DELETE BUTTON FINDER (TR/EN Primary + SVG/Color Fallback) ---
+    const findDeleteButton = (menuItems) => {
+        // METHOD 1: TR/EN Text Detection (Primary)
+        for (const item of menuItems) {
+            const text = item.innerText.toLowerCase();
+            if (text.includes('delete') || text.includes('sil')) {
+                return item;
+            }
+        }
+
+        // METHOD 2: SVG Path Detection (Fallback - Trash Icon)
+        const trashPathPart = "M16 6V4.5C16 3.12 14.88 2 13.5 2h-3C9.11 2";
+        for (const item of menuItems) {
+            const svgPath = item.querySelector('path')?.getAttribute('d');
+            if (svgPath && svgPath.includes(trashPathPart)) {
+                return item;
+            }
+        }
+
+        // METHOD 3: Color Detection (Fallback - Red = Danger)
+        for (const item of menuItems) {
+            const textSpan = item.querySelector('span');
+            if (textSpan) {
+                const color = window.getComputedStyle(textSpan).color;
+                if (color === 'rgb(244, 33, 46)' || color === 'rgb(220, 30, 41)') {
+                    return item;
+                }
+            }
+        }
+
+        return null;
+    };
+
+    // --- UNRETWEET CONFIRM FINDER (data-testid Primary + TR/EN Fallback) ---
+    const findUnretweetConfirm = () => {
+        // METHOD 1: data-testid (Most Reliable)
+        const byTestId = document.querySelector('[data-testid="unretweetConfirm"]');
+        if (byTestId) return byTestId;
+
+        // METHOD 2: TR/EN Text Detection (Fallback)
+        const menuItems = document.querySelectorAll('[role="menuitem"]');
+        for (const item of menuItems) {
+            const text = item.innerText.toLowerCase();
+            if (text.includes('undo repost') || text.includes('undo retweet') ||
+                text.includes('geri al') || (text.includes('retweet') && text.includes('iptal'))) {
+                return item;
+            }
+        }
+
+        // METHOD 3: SVG Path Detection (Fallback - Retweet Icon)
+        const retweetPathPart = "M4.75 3.79l4.603 4.3-1.706 1.82L6 8.38v7.37c0";
+        for (const item of menuItems) {
+            const svgPath = item.querySelector('path')?.getAttribute('d');
+            if (svgPath && svgPath.includes(retweetPathPart)) {
+                return item;
+            }
+        }
+
+        return null;
+    };
+
+    // --- MAIN DESTROYER LOOP ---
     async function destroyerLoop() {
         if (!document.getElementById('xd-panel') || !isRunning) return;
 
@@ -355,9 +419,14 @@
         const rtEnabled = document.getElementById('xd-rt-check').checked;
         const speedBase = parseInt(document.getElementById('xd-speed').value);
 
-        if (!dateVal) { log(t('noDate'), 'error'); isRunning = false; return; }
+        if (!dateVal) {
+            log(t('noDate'), 'error');
+            isRunning = false;
+            return;
+        }
         const targetDate = new Date(dateVal);
 
+        // Query DOM fresh each iteration
         const timeElements = Array.from(document.querySelectorAll('time'));
 
         if (timeElements.length === 0) {
@@ -374,11 +443,13 @@
             const tweetArticle = timeEl.closest('article[data-testid="tweet"]');
             if (!tweetArticle) continue;
 
+            // Skip already processed tweets
             if (tweetArticle.getAttribute('data-xd-checked') === 'true') continue;
 
             const tweetDateStr = timeEl.getAttribute('datetime');
             const tweetDate = new Date(tweetDateStr);
 
+            // Skip tweets newer than target date
             if (tweetDate > targetDate) {
                 tweetArticle.setAttribute('data-xd-checked', 'true');
                 skippedCount++;
@@ -388,18 +459,22 @@
 
             targetFound = true;
 
+            // Scroll tweet into view
             tweetArticle.scrollIntoView({ behavior: 'smooth', block: 'center' });
             await sleep(600);
 
             tweetArticle.setAttribute('data-xd-checked', 'true');
 
+            // Check if it's a retweet
             const unretweetBtn = tweetArticle.querySelector('[data-testid="unretweet"]');
+
             if (unretweetBtn && rtEnabled) {
+                // RETWEET REMOVAL
                 log(`${t('targetRt')} ${tweetDate.toISOString().split('T')[0]}`, 'rt');
                 unretweetBtn.click();
                 await sleep(randomDelay(800));
 
-                const confirmRT = document.querySelector('[data-testid="unretweetConfirm"]');
+                const confirmRT = findUnretweetConfirm();
                 if (confirmRT) {
                     confirmRT.click();
                     log(t('rtCancelled'), 'rt');
@@ -409,9 +484,10 @@
                     requestAnimationFrame(destroyerLoop);
                     return;
                 } else {
-                    document.body.click();
+                    document.body.click(); // Close menu
                 }
             } else {
+                // NORMAL TWEET DELETION
                 const caret = tweetArticle.querySelector('[data-testid="caret"]');
                 if (caret) {
                     log(`${t('target')} ${tweetDate.toISOString().split('T')[0]}`, 'info');
@@ -419,14 +495,7 @@
                     await sleep(randomDelay(800));
 
                     const menuItems = document.querySelectorAll('[role="menuitem"]');
-                    let deleteBtn = null;
-                    for (const item of menuItems) {
-                        const text = item.innerText.toLowerCase();
-                        if (text.includes('sil') || text.includes('delete')) {
-                            deleteBtn = item;
-                            break;
-                        }
-                    }
+                    const deleteBtn = findDeleteButton(menuItems);
 
                     if (deleteBtn) {
                         deleteBtn.click();
@@ -456,6 +525,7 @@
             break;
         }
 
+        // No target found in visible area, scroll down
         if (!targetFound) {
             log(t('areaClean'), 'warn');
             window.scrollBy(0, 600);
@@ -467,7 +537,7 @@
         }
     }
 
-    // --- EVENTS ---
+    // --- EVENT LISTENERS ---
     document.getElementById('xd-start').addEventListener('click', () => {
         if (isRunning) return;
         isRunning = true;
@@ -481,7 +551,7 @@
     });
 
     document.getElementById('xd-speed').addEventListener('input', (e) => {
-        document.getElementById('xd-speed-val').innerText = e.target.value + "ms";
+        document.getElementById('xd-speed-val').innerText = e.target.value + 'ms';
     });
 
 })();
