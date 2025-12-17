@@ -14,7 +14,7 @@ Hackamate is a collection of **surgical automation tools** designed to eliminate
 
 **Tembel dahiler için otomasyon cephaneliği.**
 
-> *"Bir iradenin gücünü, ne kadar direnç, acı ve işkenceye katlandığını ve bunları nasıl kendi avantajına çevirdiğini ölçerim."*  
+> *"Bir iradenin gücünü, ne kadar dirence, acıya, işkenceye dayanabildiğine ve bunları kendi yararına çevirmeyi bildiğine göre değerlendiririm."*  
 > — Friedrich Nietzsche
 
 Hackamate, tekrarlayan dijital işleri ortadan kaldırmak için tasarlanmış **cerrahi otomasyon araçları** koleksiyonudur. Şişirilmiş framework yok. Gereksiz bağımlılık yok. Sadece çalışan scriptler.
@@ -95,3 +95,4 @@ Personal use only. You break it, you own it.
 ## License
 
 [MIT](./xweet/LICENSE)
+
