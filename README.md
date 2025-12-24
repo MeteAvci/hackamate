@@ -27,6 +27,7 @@ Hackamate, tekrarlayan dijital işleri ortadan kaldırmak için tasarlanmış **
 |------|-------|----------|
 | [scrapamate](./scrapamate) | Google Maps | Gerçek zamanlı web UI ile lead toplayıcı |
 | [xweet](./xackamate/xweet) | X (Twitter) | Çok katmanlı algılama ile eski tweet ve retweetleri toplu siler |
+| [xlistoff](./xackamate/xlistoff) | X (Twitter) | Seni takip etmeyenleri akıllı scroll ile toplu unfollow |
 
 *Daha fazla silah yükleniyor...*
 
@@ -63,6 +64,7 @@ Yalnızca kişisel kullanım. Kırarsan, senin sorunun.
 |------|--------|--------------|
 | [scrapamate](./scrapamate) | Google Maps | Lead harvester with real-time web UI |
 | [xweet](./xackamate/xweet) | X (Twitter) | Bulk nuke old tweets & retweets with multi-layer detection |
+| [xlistoff](./xackamate/xlistoff) | X (Twitter) | Smart scroll bulk unfollow for non-followers |
 
 *More weapons loading...*
 
