@@ -1,0 +1,6 @@
+playwright
+pandas
+flask
+flask-socketio
+beautifulsoup4
+lxml
