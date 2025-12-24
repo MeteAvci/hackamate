@@ -1,0 +1,45 @@
+# =============================================
+# HACKAMATE ROOT GITIGNORE
+# =============================================
+
+# ----- Python -----
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ----- Node.js -----
+node_modules/
+npm-debug.log*
+
+# ----- IDE -----
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ----- OS -----
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ----- Environment -----
+.env
+.env.local
+.env.*.local
+
+# ----- Logs -----
+*.log
+logs/
+
+# ----- Data files -----
+*.csv
+!requirements.txt
+
+# ----- Build outputs -----
+dist/
+build/
+*.bundle.js
